@@ -1,4 +1,6 @@
 # EmotionClassification_FER2013
+![Emotion Classification headline](./FacialExpressionRecognition/output/testImage.jpg)
+
 Emotion classification has always been a very challenging task in Computer Vision. 
 Using the FER 2013 released by Kaggle, this project couples an deep learning based face detector 
 and an emotion classification DNN to classify the six/seven basic human emotions. 
