@@ -25,8 +25,24 @@ The FER 2013 dataset consists of 35887 images across 3 categories:
 Summary:
 #### Training set: 28709, Validation set: 3589, Test set: 3589 (across all 7 emotions)
 
+<img src="./figures/data_distribution.png" width="425" height="325"> <img src="./figures/total_data_distribution.png" width="425" height="325">
+
+The above figures show clearly that the data is distributed in an 80 + 10 + 10 split where the validation and training data each consists of 10% of the total number of samples. Upon further investigation it was found that the number of samples belonging to the "disgust" class is remarkably lower (~1.5%) than the other classes, with "happy" (~25%) consisting the max number of samples. This is one of the primary reasons of merging the "anger" and "disgust" class to create a more balanced dataset as done by [2]. Thus, this project allows for emotion classification of either 6 or 7 emotions based on the choice of the user.
+
+Finally, to explore the data distribution slightly further, the overall data is divided according to their usage (training/ validation/ test) and their distribution is given in the figures below:
+
+<img src="./figures/training_data_split.png" width="425" height="325"> <img src="./figures/validation_data_split.png" width="425" height="315"> 
+<p align="center">
+  <img src="./figures/test_data_split.png" width="425" height="325"> 
+</p>
+
+Again, as seen earlier, the data distribution of the all three sets are more or less similar with the "disgust" class remarkably trailing (in number of samples) compared to other emotions.
+
+OK, so finally we move to the next section which describes the overall pipeline of the project.
 
 ## Overall pipeline
+![Emotion Classification Pipeline](./figures/Pipeline.png)
+
 The challenge presented in this project can be considered as a Regression and Classification challenge where the face detection is a regression problem and the detected ROI is then classified by a classification model trained FER 2013 dataset (detailed above).
 
 Solution: Stack two deep learning based models (face detection + classification). The face detector is based on the Single Shot Multibox Detector (SSD) [3] which extracts the face from the input image. This face (ROI) is then fed to the classification model which predicts and classifies the emotion (exhibited by the face) as shown in Figure 3. 
