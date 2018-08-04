@@ -1,5 +1,8 @@
 # EmotionClassification_FER2013
+
 ![Emotion Classification headline](./FacialExpressionRecognition/output/testImage.jpg)
+
+*Figure 1: Emotion classification headline*
 
 Emotion classification has always been a very challenging task in Computer Vision. 
 Using the FER 2013 released by Kaggle, this project couples an deep learning based face detector 
@@ -27,6 +30,8 @@ Summary:
 
 <img src="./figures/data_distribution.png" width="425" height="325"> <img src="./figures/total_data_distribution.png" width="425" height="325">
 
+*Figure 2: Left: total data distribution, right: emotion distribution (train + val + test) sets*
+
 The above figures show clearly that the data is distributed in an 80 + 10 + 10 split where the validation and training data each consists of 10% of the total number of samples. Upon further investigation it was found that the number of samples belonging to the "disgust" class is remarkably lower (~1.5%) than the other classes, with "happy" (~25%) consisting the max number of samples. This is one of the primary reasons of merging the "anger" and "disgust" class to create a more balanced dataset as done by [2]. Thus, this project allows for emotion classification of either 6 or 7 emotions based on the choice of the user.
 
 Finally, to explore the data distribution slightly further, the overall data is divided according to their usage (training/ validation/ test) and their distribution is given in the figures below:
@@ -36,18 +41,24 @@ Finally, to explore the data distribution slightly further, the overall data is 
   <img src="./figures/test_data_split.png" width="425" height="325"> 
 </p>
 
-Again, as seen earlier, the data distribution of the all three sets are more or less similar with the "disgust" class remarkably trailing (in number of samples) compared to other emotions.
+*Figure 3: Emotion distribution across Training, Validation and Test data sets*
+
+Again, as seen earlier in Figure 2, the data distributions shown in Figure 3 demonstrates that all three sets are more or less similar with the "disgust" class remarkably trailing (in number of samples) compared to other emotions.
 
 OK, so finally we move to the next section which describes the overall pipeline of the project.
 
 ## Overall pipeline
 ![Emotion Classification Pipeline](./figures/Pipeline.png)
 
+*Figure 4: Emotion classification headline (localization & detection using SSD and classification using VGG like network*
+
 The challenge presented in this project can be considered as a Regression and Classification challenge where the face detection is a regression problem and the detected ROI is then classified by a classification model trained FER 2013 dataset (detailed above).
 
-Solution: Stack two deep learning based models (face detection + classification). The face detector is based on the Single Shot Multibox Detector (SSD) [3] which extracts the face from the input image. This face (ROI) is then fed to the classification model which predicts and classifies the emotion (exhibited by the face) as shown in Figure 3. 
+Solution: Stack two deep learning based models (face detection + classification). The face detector is based on the Single Shot Multibox Detector (SSD) [3] which extracts the face from the input image. The face/faces (ROI) is/are then fed to the classification model which predicts and classifies the emotion (exhibited by the face) as shown in Figure 4. The output of this procedure (detection and classification is later shown in Section "Output". 
 
-NOTE: In this case, only the expression with most probability is extracted and shown as the output. 
+NOTE: Although, the output from the emotion classifier consists of probabiility distribution histogram, in this case, only the expression with most probability is extracted and shown as the output. 
+
+## Network Architecture:
 
 ## References
 [1] Ian J. Goodfellow et al. “Challenges in Representation Learning: A Report on Three Machine Learning Contests”. In: Neural Information Processing: 20th International Conference, ICONIP 2013, Daegu, Korea, November 3-7, 2013. Proceedings, Part III. Edited by Minho Lee et al. Berlin, Heidelberg: Springer Berlin Heidelberg, 2013, pages 117–124. ISBN: 978-3-642-42051-1. DOI: 10.1007/978-3-642-42051-1_16. URL: https://doi.org/10.1007/978-3-642-42051-1_16
