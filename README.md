@@ -59,7 +59,9 @@ Solution: Stack two deep learning based models (face detection + classification)
 NOTE: Although, the output from the emotion classifier consists of probabiility distribution histogram, in this case, only the expression with most probability is extracted and shown as the output. 
 
 ## Network Architecture:
+![SSDArchitecture](./figures/SSD.png)
 
+*Network architecture of Single Shot Multibox Dectector [3]*
 ## References
 [1] Ian J. Goodfellow et al. “Challenges in Representation Learning: A Report on Three Machine Learning Contests”. In: Neural Information Processing: 20th International Conference, ICONIP 2013, Daegu, Korea, November 3-7, 2013. Proceedings, Part III. Edited by Minho Lee et al. Berlin, Heidelberg: Springer Berlin Heidelberg, 2013, pages 117–124. ISBN: 978-3-642-42051-1. DOI: 10.1007/978-3-642-42051-1_16. URL: https://doi.org/10.1007/978-3-642-42051-1_16
 
