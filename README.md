@@ -61,12 +61,31 @@ NOTE: Although, the output from the emotion classifier consists of probabiility 
 ## Network Architecture:
 ![SSDArchitecture](./figures/SSD.png)
 
-*Network architecture of Single Shot Multibox Dectector [3] for face detection*
+*Figure 5: Network architecture of Single Shot Multibox Dectector [3] for face detection*
 
 ![ClassificationNet](./figures/ClassificationNetwork.png)
 
-*Custom VGG [4] like (sequential) classification network*
+*Figure 6: Custom VGG [4] like (sequential) classification network*
 
+#### NOTE: The project consists another deeper architecture with more convolution and maxpool layers. However, it was found that usage of a deeper architecture did not necessarily mean better classification.
+
+## Prerequisites:
+I have tried to keep as little requirements as possible to run this project. The minimum requirements are given as below:
+
+  1) Min CUDA 8.0 and CUDNN 6.0 (you may change to other versions) - but ensure that you have compatible CUDA and CUDNN
+  2) Numpy 
+  3) Matplotlib
+  4) Tensorflow-GPU 1.4.0 (min) - matching with CUDA 8.0 and CUDNN 6.0 
+  5) Keras 2.1.6 (min)
+  6) h5py 
+  7) OpenCV 3.4 preferably (because it supports DNN module) - can use the face detection pre-trained caffe model
+  8) Python pydot and Graphviz software [5] (in case you want to save the network to a file to visualize and modify)
+  
+## Building dataset and training the classification model
+
+#### STEP 1: Unpack the FER 2013 (from Kaggle [6])
+  
+  
 ## References
 [1] Ian J. Goodfellow et al. “Challenges in Representation Learning: A Report on Three Machine Learning Contests”. In: Neural Information Processing: 20th International Conference, ICONIP 2013, Daegu, Korea, November 3-7, 2013. Proceedings, Part III. Edited by Minho Lee et al. Berlin, Heidelberg: Springer Berlin Heidelberg, 2013, pages 117–124. ISBN: 978-3-642-42051-1. DOI: 10.1007/978-3-642-42051-1_16. URL: https://doi.org/10.1007/978-3-642-42051-1_16
 
@@ -75,3 +94,7 @@ NOTE: Although, the output from the emotion classifier consists of probabiility 
 [3] Liu, Wei, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed, Cheng-Yang Fu, and Alexander C. Berg. "Ssd: Single shot multibox detector." In European conference on computer vision, pp. 21-37. Springer, Cham, 2016.
 
 [4] Simonyan, Karen, and Andrew Zisserman. "Very deep convolutional networks for large-scale image recognition." arXiv preprint arXiv:1409.1556 (2014).
+
+[5] Graphviz Software: https://www.graphviz.org/
+
+[6] FER 2013 dataset: https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data
