@@ -84,8 +84,48 @@ I have tried to keep as little requirements as possible to run this project. The
 ## Building dataset and training the classification model
 
 #### STEP 1: Unpack the FER 2013 (from Kaggle [6])
-  
-  
+
+## Training the networks:
+OpenCV 3.4 comes with a pre-trained SSD for face detection DNN model trained with caffe. Therefore, for convenience, the face.caffemodel and deploy.protxt.txt is included in the "output" folder of the project. Also, pre-trained models from the classification network with either 7 or 6 emotions are included in the output folder and can be used for emotion prediction. 
+
+### Training the classification network:
+Following the dataset build (mentioned in the previous section), the randomly initialized emotion classification network can be trained end-to-end using the TrainNetwork.py file.
+
+Usage:
+
+	python TrainNetwork.py -b <base_path> -n <number_of_emotions> -im <input_model_name (optional)> -om <output_model_name (optional)> -lr <learning_rate (optional)> -epochs <number_of_epochs>
+
+Typical paramters:
+
+1) base_path = the folder which contains the fer2013, hdf5 and output subfolders (such as the included FacialExpressionRecognition)
+
+2) number_of_emotions = either 6 or emotions (ensure this matches with the dataset build)
+
+3) input_model_name = None (if you are training from scratch), <you pretrained name> if you are improving after already some training (this allows fine tuing after a few epochs) by changing the learning rate
+	
+4) output_model_name = optional argument but recommended. Default name: emotion_classification_final.hdf5
+
+5) learning_rate = default is 1e-3 (Adam). 
+	
+		if lr is None:
+			old_lr = get_lr_from_input_model(input_model_name)
+			new_lr = old_lr/10 
+		end
+		
+6) number_of_epochs = 60 to 80 (first round with lr = 1e-3), 20 (second round with lr = 1e-4) and 10 (third round with lr = 1e-5). 
+
+#### NOTE: the network has an Early Stopping Monitor. So it will stop training if there is no improvement in validation loss after a few epochs. 
+
+So with these parameters, I trained the network and achieved pretty good results compared to the relevant submissions in Kaggle as shown below in Figure 7.
+
+<img src="./figures/train_50_epochs.png" width="425" height="325"> <img src="./figures/finetune_20_epochs.png" width="425" height="315"> 
+<p align="center">
+<img src="./figures/finetune2_15_epochs.png" width="425" height="315"> 
+</p>
+
+### Testing the classification network:
+
+
 ## References
 [1] Ian J. Goodfellow et al. “Challenges in Representation Learning: A Report on Three Machine Learning Contests”. In: Neural Information Processing: 20th International Conference, ICONIP 2013, Daegu, Korea, November 3-7, 2013. Proceedings, Part III. Edited by Minho Lee et al. Berlin, Heidelberg: Springer Berlin Heidelberg, 2013, pages 117–124. ISBN: 978-3-642-42051-1. DOI: 10.1007/978-3-642-42051-1_16. URL: https://doi.org/10.1007/978-3-642-42051-1_16
 
