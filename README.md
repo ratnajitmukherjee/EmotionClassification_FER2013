@@ -61,10 +61,17 @@ NOTE: Although, the output from the emotion classifier consists of probabiility 
 ## Network Architecture:
 ![SSDArchitecture](./figures/SSD.png)
 
-*Network architecture of Single Shot Multibox Dectector [3]*
+*Network architecture of Single Shot Multibox Dectector [3] for face detection*
+
+![ClassificationNet](./figures/ClassificationNetwork.png)
+
+*Custom VGG [4] like (sequential) classification network*
+
 ## References
 [1] Ian J. Goodfellow et al. “Challenges in Representation Learning: A Report on Three Machine Learning Contests”. In: Neural Information Processing: 20th International Conference, ICONIP 2013, Daegu, Korea, November 3-7, 2013. Proceedings, Part III. Edited by Minho Lee et al. Berlin, Heidelberg: Springer Berlin Heidelberg, 2013, pages 117–124. ISBN: 978-3-642-42051-1. DOI: 10.1007/978-3-642-42051-1_16. URL: https://doi.org/10.1007/978-3-642-42051-1_16
 
 [2] Jostine Ho. Facial Emotion Recognition. https://github.com/JostineHo/mememoji/
 
 [3] Liu, Wei, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed, Cheng-Yang Fu, and Alexander C. Berg. "Ssd: Single shot multibox detector." In European conference on computer vision, pp. 21-37. Springer, Cham, 2016.
+
+[4] Simonyan, Karen, and Andrew Zisserman. "Very deep convolutional networks for large-scale image recognition." arXiv preprint arXiv:1409.1556 (2014).
