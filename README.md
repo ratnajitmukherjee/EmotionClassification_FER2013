@@ -82,8 +82,30 @@ I have tried to keep as little requirements as possible to run this project. The
   8) Python pydot and Graphviz software [5] (in case you want to save the network to a file to visualize and modify)
   
 ## Building dataset (for training from scratch)
+To build the dataset, you need to create a folder structure similar to the folder "FacialExpressionRecognition" given in this project. That is your "BASE_PATH". 
 
-#### STEP 1: Unpack the FER 2013 (from Kaggle [6])
+The base path consists of three subfolders:
+
+1) fer2013 (where you should unpack the input dataset from kaggle
+
+2) hdf5 (where the input dataset should be divided into training, validation and test sets (all .hdf5 files) and used later
+
+3) output (where the training output models will be stored)
+
+#### STEP 1: Unpack the FER 2013 (from Kaggle [6]) and dump it to "fer2013" folder inside your base_path
+#### STEP 2: Use BuildDataset.py to build the .hdf5 files in the hdf5 folder (discussed later in this section)
+
+Usage: BuildDataSet.py (to build the HDF5 files from the input CSV):
+
+	python BuildDataSet.py -b <base_path> -n <number_of_emotions> 
+
+Typical parameters: 
+
+1) base_path = the folder which contains the fer2013, hdf5 and output subfolders (such as the included FacialExpressionRecognition)
+
+2) number_of_emotions = either 6 or emotions (ensure this matches with the dataset build)
+
+##### NOTE: Please ensure that the number of emotions remains the same for training, testing and prediction (discussed in later sections)
 
 ## Training the networks:
 OpenCV 3.4 comes with a pre-trained SSD for face detection DNN model trained with caffe. Therefore, for convenience, the face.caffemodel and deploy.protxt.txt is included in the "output" folder of the project. Also, pre-trained models from the classification network with either 7 or 6 emotions are included in the output folder and can be used for emotion prediction. 
@@ -123,7 +145,7 @@ So with these parameters, I trained the network and achieved pretty good results
 <img src="./figures/finetune2_15_epochs.png" width="425" height="315"> 
 </p>
 
-*Figure 7: Train_accuracy, Train_loss, val_accuracy and 
+*Figure 7: Train_accuracy, Train_loss, val_accuracy and val_loss for main training + finetune1 + finetune2*
 
 ## Testing the classification network:
 The emotion classification models trained on 6/7 emotions can be tested using the "TestNetwork.py" file with the following arguments:
@@ -161,7 +183,11 @@ Typical Parameters:
 ## Results and Discussion:
 ![Emotion Classification output](./FacialExpressionRecognition/output/testOutput.jpg)
 
-*Final Results: Output from the SSD face detector and emotion classifier (only the emotion with highest probability is displayed)*
+*Figure 8: Final Results: Output from the SSD face detector and emotion classifier (only the emotion with highest probability is displayed)*
+
+The final results shown in Figure 8 demonstrates that the face detection model is quite accurate in detecting faces from background. A few background studies have demonstrated that using a deep learning detector provides more accurate than the only front facing HAAR classifier. The ROI passed from the detector is fed to the classifer network which decides the highest probability of emtions. Subsequently, the bounding box (for face) is annotated with the emotion (with max probability). 
+
+#### NOTE: The classification accuracy can probably be increased by using inception modules (such as GoogLeNet [7]) to build the classifier network instead of a sequential model.
 
 ## References
 [1] Ian J. Goodfellow et al. “Challenges in Representation Learning: A Report on Three Machine Learning Contests”. In: Neural Information Processing: 20th International Conference, ICONIP 2013, Daegu, Korea, November 3-7, 2013. Proceedings, Part III. Edited by Minho Lee et al. Berlin, Heidelberg: Springer Berlin Heidelberg, 2013, pages 117–124. ISBN: 978-3-642-42051-1. DOI: 10.1007/978-3-642-42051-1_16. URL: https://doi.org/10.1007/978-3-642-42051-1_16
@@ -175,3 +201,5 @@ Typical Parameters:
 [5] Graphviz Software: https://www.graphviz.org/
 
 [6] FER 2013 dataset: https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data
+
+[7] Szegedy, Christian, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, and Andrew Rabinovich. "Going deeper with convolutions." In Proceedings of the IEEE conference on computer vision and pattern recognition, pp. 1-9. 2015.
