@@ -81,7 +81,7 @@ I have tried to keep as little requirements as possible to run this project. The
   7) OpenCV 3.4 preferably (because it supports DNN module) - can use the face detection pre-trained caffe model
   8) Python pydot and Graphviz software [5] (in case you want to save the network to a file to visualize and modify)
   
-## Building dataset and training the classification model
+## Building dataset (for training from scratch)
 
 #### STEP 1: Unpack the FER 2013 (from Kaggle [6])
 
@@ -123,8 +123,45 @@ So with these parameters, I trained the network and achieved pretty good results
 <img src="./figures/finetune2_15_epochs.png" width="425" height="315"> 
 </p>
 
-### Testing the classification network:
+*Figure 7: Train_accuracy, Train_loss, val_accuracy and 
 
+## Testing the classification network:
+The emotion classification models trained on 6/7 emotions can be tested using the "TestNetwork.py" file with the following arguments:
+	
+	python TestNetwork.py -b <base_path> -n <number_of_emotions> -im <pretrained_model_name>
+
+Typical parameters: 
+
+1) base_path = the folder which contains the fer2013, hdf5 and output subfolders (such as the included FacialExpressionRecognition)
+
+2) num_of_emotions = 6/7 (depending on how you build your dataset)
+
+3) input_model_name = name of the pretrained model (saved/dumped into the output folder of the base_path). 
+
+###### NOTE: For the sake of convenience, I have included 2 pretrained models "emotion_classification_6classes.hdf5" and "emotion_classification_7classes.hdf5" for 6 and 7 emotions, respectively. Both achieve almost similar results to the best posted in Kaggle. 
+
+## Emotion Detection: 
+Although this the final execution script, I am writing this now because this is the most important class of the entire project and the project can be executed with the included pre-trained classifiers and face detection models using this script.
+
+Usage:
+
+	python -b <base_path> -n <number_of_emotions> -m <input_model_name> -i <absolute_input_image_path> -o <absolute_output_image_path>
+
+Typical Parameters: 
+1) base_path = the folder which contains the fer2013, hdf5 and output subfolders (such as the included FacialExpressionRecognition)
+
+2) num_of_emotions = 6/7 (depending on how you build your dataset)
+
+3) input_model_name = name of the pretrained model (saved/dumped into the output folder of the base_path). 
+
+4) input_image_path = in this case the test image in the output folder of the base_path
+
+5) output_image_path = in this case the path where you want to dump the output of the face detector and classifier.
+
+## Results and Discussion:
+![Emotion Classification output](./FacialExpressionRecognition/output/testOutput.jpg)
+
+*Final Results: Output from the SSD face detector and emotion classifier (only the emotion with highest probability is displayed)*
 
 ## References
 [1] Ian J. Goodfellow et al. “Challenges in Representation Learning: A Report on Three Machine Learning Contests”. In: Neural Information Processing: 20th International Conference, ICONIP 2013, Daegu, Korea, November 3-7, 2013. Proceedings, Part III. Edited by Minho Lee et al. Berlin, Heidelberg: Springer Berlin Heidelberg, 2013, pages 117–124. ISBN: 978-3-642-42051-1. DOI: 10.1007/978-3-642-42051-1_16. URL: https://doi.org/10.1007/978-3-642-42051-1_16
